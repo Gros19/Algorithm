@@ -4,15 +4,32 @@ public class root {
 
 	public static void main(String[] args) {
 		Scanner scn = new Scanner(System.in);
-		
-		for(int i=1; i<101; i++) {
-			System.out.print(i+"ÀÇ Á¦°ö: "+i*i+"\t");
-			System.out.println(((i+1)*(i+1))-i*i);
+		long min = scn.nextLong();
+		long max = scn.nextLong();
+		int c=0;
+		long i=1,root=0;
+	/*	
+		0 1
+		1 3
+		4 5 y
+		9 7 y
+		169 y 
+	*/	
+		while(root+i<=max) {
+			
+			root+=i;
+			
+			if(min<=root) {
+				++c;
+				//System.out.println(root);
+				}
+			i+=2;
+			
+				
 		}
-		int min = scn.nextInt();
-		int max = scn.nextInt();
+		System.out.println(((max-(min-1))-c));
 		
-		
+
 
 	}
 
