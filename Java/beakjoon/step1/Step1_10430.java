@@ -1,3 +1,5 @@
+package step1;
+
 import java.util.Scanner;
 
 public class Step1_10430 {
@@ -11,6 +13,7 @@ public class Step1_10430 {
         Scanner scn = new Scanner(System.in);
         StringBuilder sb = new StringBuilder(scn.nextLine());
         String[] ins = sb.toString().split(" ", 3);
+        sb =null;
         int A = Integer.parseInt(ins[0]);
         int B = Integer.parseInt(ins[1]);
         int C = Integer.parseInt(ins[2]);
