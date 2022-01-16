@@ -88,21 +88,15 @@ public class Step7_1193 {
             d += i;
         }
 
-        if ( i % 2 == 0) {
-            right = i;
-            left = 1;
-            for(int n = N-(d-i); n > 1; n--){
-                right--;
-                left++;
-            }
-        }else{
-            left = i;
-            right = 1;
-            for(int n = N-(d-i); n > 1; n--){
 
-                left--;
-                right++;
-            }
+        int k = N-(d-i);
+
+        if ( i % 2 == 0) {
+            right = i+1 - k;
+            left = k;
+        }else{
+            left = i+1 -k;
+            right = k;
         }
 
 
