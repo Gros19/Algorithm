@@ -29,40 +29,6 @@ import java.lang.Math;
 3
 3
 4
-
-1
-2147483640 2147483647
-
-0 1 2 3 4 5 6 - 7
-0 1
-1 2 3
-3 4 5 6
-
-20
-0 1
-0 2
-0 3
-0 4
-0 5
-0 6
-0 7
-0 8
-0 9
-0 10
-0 11
-0 12
-0 13
-0 14
-0 15
-0 16
-0 17
-0 18
-0 19
-0 20
-
-count가 증가하면 거리는 1증가한다.
-
-
  */
 public class Step7_1011 {
     public static void main(String[] args) throws IOException {
@@ -70,31 +36,28 @@ public class Step7_1011 {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int N = Integer.parseInt(br.readLine());
-
-
-
+        int d, max, cnt, rootd;
 
         while(N > 0){
             N--;
-            int cnt = 0;
-
 
             String[] inStr = br.readLine().split(" ");
             int x = Integer.parseInt(inStr[0]);
             int y = Integer.parseInt(inStr[1]);
 
+            d = y - x;
+            max = (int)Math.sqrt(d);
+            rootd = max*max;
 
-
-            cnt = y - x;
-            y = (int)Math.sqrt(y-x);
-            if(Math.sqrt(cnt)%1 == 0.0){
-                System.out.println();
+            if(d==rootd){
+                cnt = max * 2 - 1;
+            }else if(d-rootd <= max){
+                cnt = max * 2 ;
+            }else{
+                cnt= max * 2 + 1;
             }
 
-
-            int sum = 1;
-
-            bw.write(cnt +"  "+y+"\n");
+            bw.write(cnt+"\n");
         }
 
 
