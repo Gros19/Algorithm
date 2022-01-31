@@ -30,59 +30,8 @@ import java.util.Arrays;
 3 5
 5 5
 5 11
+*/
 
-24
-4
-6
-8
-10
-12
-14
-16
-18
-20
-22
-24
-26
-28
-30
-32
-34
-36
-38
-40
-42
-44
-46
-48
-50
-
-4 = 2+2
-6 = 3+3
-8 = 3+5
-10 = 3+7 = 5+5
-12 = 5+7
-14 = 3+11 = 7+7
-16 = 3+13 = 5+11
-18 = 5+13 = 7+11
-20 = 3+17 = 7+13
-22 = 3+19 = 5+17 = 11+11
-24 = 5+19 = 7+17 = 11+13
-26 = 3+23 = 7+19 = 13+13
-28 = 5+23 = 11+17
-30 = 7+23 = 11+19 = 13+17
-32 = 3+29 = 13+19
-34 = 3+31 = 5+29 = 11+23 = 17+17
-36 = 5+31 = 7+29 = 13+23 = 17+19
-38 = 7+31 = 19+19
-40 = 3+37 = 11+29 = 17+23
-42 = 5+37 = 11+31 = 13+29 = 19+23
-44 = 3+41 = 7+37 = 13+31
-46 = 3+43 = 5+41 = 17+29 = 23+23
-48 = 5+43 = 7+41 = 11+37 = 17+31 = 19+29
-50 = 3+47 = 7+43 = 13+37 = 19+31
-
- */
 public class Step9_9020 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -93,33 +42,31 @@ public class Step9_9020 {
             boolean[] arr = new boolean[n+1];
             Arrays.fill(arr,true);
 
-            for(int i = 2;i < arr.length/2+1; i++){
-                for(int j = 2; j*i < arr.length; j++){
+
+            int LEN = arr.length;
+            int limit = LEN/2+1;
+
+            for(int i = 2; i < limit; i++){
+                for(int j = 2; j*i < LEN; j++){
                     arr[i*j] = false;
                 }
             }
 
-            if(arr[n/2]){
+
+            int m = n/2;
+            if(arr[m]){
                 sb.append(n / 2).append(" ").append(n / 2).append("\n");
                 continue;
             }
-            String res = "";
-            for(int m = arr.length-2; m > 2 ; m--){
+
+            for(; m > 1 ; m--){
                 if(arr[m]){
-                    int s = 2;
-                    while(s < m){
-                        if(arr[s]){
-                            if(m+s == n){
-                                res = s + " " + m;
-                                break;
-                            }
-                        }
-                        s++;
+                    if(arr[n-m]){
+                        sb.append(m).append(" ").append(n - m).append("\n");
+                        break;
                     }
                 }
             }
-            sb.append(res).append("\n");
-
 
         }
         System.out.println(sb);
