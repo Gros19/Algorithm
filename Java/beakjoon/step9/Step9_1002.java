@@ -3,8 +3,6 @@ package step9;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
-
 /*
 문제
 조규현과 백승환은 터렛에 근무하는 직원이다. 하지만 워낙 존재감이 없어서 인구수는 차지하지 않는다. 다음은 조규현과 백승환의 사진이다.
@@ -25,17 +23,20 @@ import java.util.*;
 
 예제 입력 1
 
-1
-0 0 13 40 0 37
-
 3
 0 0 13 40 0 37
 0 0 3 0 7 4
 1 1 1 1 1 5
+
 예제 출력 1
 2
 1
 0
+
+
+
+1
+-2 3 8 1 2 5
 */
 
 public class Step9_1002 {
@@ -44,10 +45,10 @@ public class Step9_1002 {
 
         int N = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
+
         while (N-- > 0) {
-            List<String> strList = new ArrayList<>() ;
-            Set<String> strSet = new HashSet<>();
             String[] str = br.readLine().split(" ");
+
             int x1, y1, r1, x2, y2, r2;
 
             x1 = Integer.parseInt(str[0]);
@@ -57,39 +58,77 @@ public class Step9_1002 {
             y2 = Integer.parseInt(str[4]);
             r2 = Integer.parseInt(str[5]);
 
-
-            int a1 = x1, a2 = x1+r1, a3 = x1, a4 = x1-r1;
-            int b1 = y1+r1, b2 = y1, b3 = y1-r1, b4 = y1;
-
-
-
-            for(int r = r1; r > -1; r--){
-                strSet.add(String.format("%d %d",a1++,b1--));
-                strSet.add(String.format("%d %d",a2--,b2--));
-                strSet.add(String.format("%d %d",a3--,b3++));
-                strSet.add(String.format("%d %d",a4++,b4--));
-            }
-            strList.addAll(strSet);
-            strSet = new HashSet<>();
-
-
-            int c1 = x2, c2 = x2+r2, c3 = x2, c4 = x2-r2;
-            int d1 = y2+r2, d2 = y2, d3 = y2-r2, d4 = y2;
-
-            for(int r = r1; r > -1; r--){
-                strSet.add(String.format("%d %d",c1++,d1--));
-                strSet.add(String.format("%d %d",c2--,d2--));
-                strSet.add(String.format("%d %d",c3--,d3++));
-                strSet.add(String.format("%d %d",c4++,d4--));
-            }
-            strList.addAll(strSet);
-            strSet = new HashSet<>();
-            strSet.addAll(strList);
-
-
-            sb.append(strList.size()-strSet.size()).append("\n");
+            sb.append(answer(x1, y1, r1, x2, y2, r2));
         }
         System.out.println(sb);
+    }
+    public static int bORs(int a, int b, int da, int db){
+        int big, bDis, small, sDis;
+        if(a < b){
+            big = b;
+            bDis = db;
+            small = a;
+            sDis = da;
+        }else{
+            big = a;
+            bDis = da;
+            small =b;
+            sDis =db;
+        }
+
+        /*
+         ( small )*( big )
+         */
+        if(big-bDis == small+sDis){
+            return 1;
+        }
+        /*
+        ( small ( big )*)
+         */
+        else if(big+bDis == small+sDis){
+            return 1;
+        }
+        /*
+        (*( small )  big )
+         */
+        else if(big-bDis == small-sDis){
+            return 1;
+        }
+
+        /*
+        ( small (**) big )
+         */
+        else if(big-bDis < small+sDis && big-bDis > small-sDis && big+bDis > small+sDis){
+            return 2;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+    public static String answer(int x1, int y1, int r1, int x2, int y2, int r2){
+
+        int xres, yres;
+        if(x1==x2 && y1==y2){
+            if(r1==r2)
+                return "-1\n";
+            else
+                return "0\n";
+
+        }
+        xres = bORs(x1,x2,r1,r2);
+        yres = bORs(y1,y2,r1,r2);
+
+        System.out.println("xres: "+ xres+" yres: "+yres);
+        if(xres ==2 || yres == 2){
+            return "2\n";
+        }else if(xres == 1 || yres == 1){
+            return "1\n";
+        }else{
+            return "0\n";
+        }
+
     }
 
 
