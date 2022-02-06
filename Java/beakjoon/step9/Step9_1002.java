@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 /*
+기본 수학 2-터렛
+
 문제
 조규현과 백승환은 터렛에 근무하는 직원이다. 하지만 워낙 존재감이 없어서 인구수는 차지하지 않는다. 다음은 조규현과 백승환의 사진이다.
 
@@ -34,9 +36,12 @@ import java.io.InputStreamReader;
 0
 
 
-
-1
+2
 -2 3 8 1 2 5
+0 0 8 3 -1 5
+
+2
+2
 */
 
 public class Step9_1002 {
@@ -62,72 +67,37 @@ public class Step9_1002 {
         }
         System.out.println(sb);
     }
-    public static int bORs(int a, int b, int da, int db){
-        int big, bDis, small, sDis;
-        if(a < b){
-            big = b;
-            bDis = db;
-            small = a;
-            sDis = da;
-        }else{
-            big = a;
-            bDis = da;
-            small =b;
-            sDis =db;
-        }
-
-        /*
-         ( small )*( big )
-         */
-        if(big-bDis == small+sDis){
-            return 1;
-        }
-        /*
-        ( small ( big )*)
-         */
-        else if(big+bDis == small+sDis){
-            return 1;
-        }
-        /*
-        (*( small )  big )
-         */
-        else if(big-bDis == small-sDis){
-            return 1;
-        }
-
-        /*
-        ( small (**) big )
-         */
-        else if(big-bDis < small+sDis && big-bDis > small-sDis && big+bDis > small+sDis){
-            return 2;
-        }
-        else{
-            return 0;
-        }
-
-    }
 
     public static String answer(int x1, int y1, int r1, int x2, int y2, int r2){
+        int d = (int) (Math.pow((y1 - y2), 2) + Math.pow(x1 - x2, 2));
 
-        int xres, yres;
+        //중심이 같을 때
         if(x1==x2 && y1==y2){
             if(r1==r2)
                 return "-1\n";
             else
                 return "0\n";
-
         }
-        xres = bORs(x1,x2,r1,r2);
-        yres = bORs(y1,y2,r1,r2);
-
-        System.out.println("xres: "+ xres+" yres: "+yres);
-        if(xres ==2 || yres == 2){
-            return "2\n";
-        }else if(xres == 1 || yres == 1){
+        //외접
+        else  if(d == Math.pow(r1+r2,2))
             return "1\n";
-        }else{
+
+        //내접
+        else if(d==Math.pow(r2- r1,2))
+            return "1\n";
+
+        //외부 무접점
+        else if(d > Math.pow(r1+r2,2))
             return "0\n";
-        }
+
+        //내부 무접점
+        else if(d < Math.pow(r1-r2,2))
+            return "0\n";
+
+
+
+        else
+            return "2\n";
 
     }
 
