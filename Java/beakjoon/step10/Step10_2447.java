@@ -1,6 +1,8 @@
 package step10;
 
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 재귀-별 찍기 - 10
@@ -53,145 +55,68 @@ N이 3보다 클 경우, 크기 N의 패턴은 공백으로 채워진 가운데�
 * ** ** ** ** ** ** ** ** *
 ***************************
 
-
-
-n = 27/3 = 9 개의 반복
-9 / 3 = 3   또 9개의 반복
------81 개의 반복
-3/ 3 = 1 9개의 반복 끝
-
-
  */
 public class Step10_2447 {
 
-    public static List<String> arr;
-    public static int n = 9;
-    public static String[] res = new String[n];
-    public static int y = 0;
-    public static int i = -1;
-    public static int charge = 0;
+    public static List<String> arr = new ArrayList<>();
 
-    public static void main(String[]args){
+    public static void main(String[]args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-//        for(int a=0; a<3; a++)
-//            for(int aa=0; aa<3; aa++)
-//                for(int aaa=0; aaa<3; aaa++)
-//                    for(int aaaa=0; aaaa<3; aaaa++)
+        arr.add("***");
+        arr.add("* *");
+        arr.add("***");
 
+        int n = Integer.parseInt(br.readLine());
 
-
-        Scanner scn = new Scanner(System.in);
-
-        Arrays.fill(res, "");
-        arr =  new ArrayList<>(Collections.nCopies(n,""));
         func(n);
 
-        String a = "";
-
-
-        int f = 0;
-        int log = (int)(Math.log(n) / Math.log(3));
-
-        for(int i = 0; ++i < n*n;){
-
+        for(String str : arr){
+            bw.write(str);
+            bw.newLine();
         }
+        bw.flush();
 
-//        while(i <= log){
-//            for(int v = 0; v <3; v++){
-//                int w= 0;
-//                while(w++ < 3 && ++i < n){
-//                    res[++hori] += arr.get(i);
-//                }
-//                hori=ctr;
-//            }
-//        }
-        now(3);
-
-
-
-        a= "";
-        for(String ss: res){
-            a+=ss+"\n";
-        }
-        System.out.println(a);
-    }
-
-    public static void now(int n){
-        if(n>0){
-            for(int a = 0;a<3 ; a++){
-                for(int aa = 0;aa<3 ; aa++){
-                    now(n/3);
-                }
-                System.out.println();
-            }
-        }else{
-            System.out.print("*");
-        }
-
-
-
-//        if(f++<log){
-//            for(int q=0 ; q < 9; q++){
-//
-//                if(q==3 || q==6){
-//
-//                    y-=8;
-//                }
-//                now(f, log);
-//
-//
-//            }
-//        }else{
-//            int su = y+3;
-//            for(int k= 0; k < 3; k++){
-//                //0 ~ 2
-//                //3 ~ 5
-//                //6 ~ 8...
-//                for(int x=y; x<su; x++){
-//                    res[x] += arr.get(++i);
-//                }
-//            }
-//            if(i== n*n/3-1 || i==n*n/3*2-1){
-//                y=0;
-//            }else{
-//                y+=3;
-//            }
-
-//        }
-
-
+        br.close();
+        bw.close();
 
     }
-
 
      public static void func (int n){
+        int size = arr.size();
+        if(n > size){
+            //세로 복사
+            for(int k = 2; k >0; k--){
+                for(int i = 0; i < size; i++){
+                    arr.add(arr.get(i));
+                }
+            }
+            int zeroPart = 0;
+            int part = arr.size()/3;
+            int thrSize = part;
 
-         if(n/3 > 1){
-             for(int i = 0; i < 9; i++)
-                 if(i == 4)
-                    funcSpace(n/3);
-                 else
-                    func(n/3);
-         }
-         else {
-             for(int i = 0; i < 9; i++) {
-                 arr.set(0, arr.get(0)+"***");
-                 arr.set(1, arr.get(1)+"* *");
-                 arr.set(2, arr.get(2)+"***");
-             }
-
-         }
+            //가로 복사
+            for(int i = 0; i < 3; i++){
+                if(i == 1){
+                    for(; zeroPart < part; zeroPart++){
+                        String s = arr.get(zeroPart);
+                        arr.set(zeroPart, s+String.format("%"+s.length()+"s","")+s);
+                    }
+                }else{ // 0 ~ 3
+                    for(; zeroPart < part; zeroPart++){
+                        String s = arr.get(zeroPart);
+                        arr.set(zeroPart, s+s+s);
+                    }
+                }
+                part += thrSize; // 3
+            }
+            func(n);
+        }else{
+            return ;
+        }
      }
 
-
-    public static void funcSpace (int n) {
-        if(n/3 > 1)
-            for(int i = 0; i < 9; i++)
-                funcSpace(n/3);
-        else
-            for(int i=0; i<9; i++)
-                arr.add(" ");
-    }
 }
 
 
