@@ -2,10 +2,10 @@ package step10;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /*
+재귀-하노이 탑
 하노이 탑 이동 순서
 시간 제한	메모리 제한	제출	정답	맞힌 사람	정답 비율
 1 초	256 MB	50416	24988	19406	49.189%
@@ -53,7 +53,7 @@ public class Step10_11729 {
 
         int i = 3;
         while (i >= 1)
-            colum[--i].add(21);
+            colum[--i].add(999);
 
         int n = Integer.parseInt(br.readLine());
 
@@ -61,6 +61,7 @@ public class Step10_11729 {
             colum[0].add(0, n--);
 
         int goal = colum[0].size();
+
         letUsHonoi(0, 2, goal);
 //        colum[0].remove(0);
 
@@ -80,26 +81,39 @@ public class Step10_11729 {
             List<Integer> dir = direction(now, dirSet());
 
             //갈 수 있는 곳이 하나면
-            if (dir.size() == 1)
+            if (dir.size() == 1) {
                 //일단 간다
+                System.out.println("하나");
                 move(now, dir.get(0));
-
                 //갈 수 있는 곳이 둘이면
+            }
             else if(dir.size() == 2) {
-                //현재 열의 요솟수가 홀수면
-                if (Continuous(now)/2 == 1)
+                System.out.println("둘");
+                //현재 열의 연속된 수가 홀수면
+                /*
+                * 0 1 <-
+                * 1 2
+                * 2 3 <-
+                * 3 4*/
+                if (Continuous(now)/2 == 0) {
                     //그대로 들어가고
                     move(now, goTo);
-
-                    //현재 열의 요솟수가 짝수면
+                }
+                    //현재 열의 연속된 수가 짝수면
                 else {
+                    for(int a : dir){
+                        System.out.println(a);
+                    }
+                    System.out.println("goto: "+goTo);
                     dir.remove(goTo);
+                    System.out.println(dir.get(0)+"로 보낸다");
                     //목적지 반대편으로 들어간다
                     move(now, dir.get(0));
                 }
             }
             //갈 수 있는 곳이 없다면
             else {
+                System.out.println("없어");
                 List<Integer> newcolum = dirSet();
                 newcolum.remove(now);
 
@@ -122,107 +136,92 @@ public class Step10_11729 {
 
     //현재 위치에서 보낼 수 있는 곳은 어디인지
     public static List<Integer> direction(int now, List<Integer> all) {
-
         all.remove(now);
-
+        List<Integer> del = new ArrayList<>();
         for (int a : all) {
-            if(colum[a].get(0) == 21){
-            }
-            else if (colum[now].get(0) < colum[a].get(0)) {
-            }else{
-                all.remove(a);
+            if (colum[now].get(0) >= colum[a].get(0)) {
+                del.add(a);
             }
         }
+        for(int d : del){
+            all.remove((Object)d);
+        }
+
         return all;
     }
 
-    /*여기 비교할 때 Continuous로 해야 하는 거 아닌가*/
-    //밑이 중간인 곳은 어디인지
+    //연속된 위층 마지막이 중간인 곳은 어디인지
     public static int whereMid(){
-        int[] arr = new int[3];
-        for(int i = 0; i < 3; i++){
-            if(colum[i].size() > 1){
-                arr[i] = colum[0].get(colum[0].size()-2);
-            }else{
-                arr[i] = 1;
-            }
-        }
-
-        return mid(arr[0], arr[1], arr[2]);
-    }
-
-    //세 수 중 중앙값 출력
-    public static int mid(int a, int b, int c){
+        int a = colum[0].get(Continuous(0));
+        int b = colum[1].get(Continuous(1));
+        int c = colum[2].get(Continuous(2));
         if(a >= b){
             //a >= b
             //b >= c
             if(b >= c){
                 // a >= b >= c
-                return b;
+                return 1;
             }
             //a >= b
             //c > b
             else if(a <= c){
                 // c >= a >= b
-                return a;
+                return 0;
             }
             // a >= b
             // c > b
             // a > c
             else{
                 // a > c > b
-                return c;
+                return 2;
             }
         }
         // b > a
         // a > c
         else if(a > c){
             //b > a > c
-            return a;
+            return 0;
         }
         // b > a
         // a <= c
         // b > c
         else if (b > c) {
             // b > c >= a
-            return c;
+            return 2;
         }
         // b > a
         // a <= c
         // b <= c
         else{
             // c >= b > a
-            return b;
+            return 1;
         }
     }
+
 
     //요소들 중 연속된 수가 홀수인지 짝수인지 판별하기 위한
     //cnt 리턴
     public static int Continuous(int here) {
-        int tmp = colum[here].get(0)-1, cnt = 0;
+        int tmp = colum[here].get(0)-1, cnt = -1;
         for(int a : colum[here]){
             if(a == tmp+1){
                 cnt++;
             }else{
-                return cnt;
+                break;
             }
         }
-
-        if ((colum[here].size() - 1) / 2 == 0)
-            return -1;
-        else
-            return 1;
+        return cnt;
     }
 
     //이동
     public static void move (int now, int goTo){
             int tmp = colum[now].get(0);
-            if(tmp == 21 && colum[goTo].get(0) < tmp){
+            if(tmp == 999 && colum[goTo].get(0) < tmp){
                 return;
             }
             colum[now].remove(0);
             colum[goTo].add(0, tmp);
-            System.out.println((now + 1) + " " + (goTo + 1));
+            System.out.println("이동 "+(now + 1) + " " + (goTo + 1)+"\n");
         }
 
 
