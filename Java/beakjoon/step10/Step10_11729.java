@@ -43,10 +43,10 @@ import java.util.List;
  */
 public class Step10_11729 {
     public static ArrayList<Integer>[] colum = new ArrayList[3];
-
+    static int count = 0;
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         colum[0] = new ArrayList();
         colum[1] = new ArrayList();
         colum[2] = new ArrayList();
@@ -63,9 +63,9 @@ public class Step10_11729 {
         int goal = colum[0].size();
 
         letUsHonoi(0, 2, goal);
-//        colum[0].remove(0);
+        System.out.print(count+"\n"+sb);
 
-
+        br.close();
     }
 
     public static List<Integer> dirSet(){
@@ -76,57 +76,42 @@ public class Step10_11729 {
         return all;
     }
 
-    public static void letUsHonoi(int now, int goTo, int goal) {
+    public static void letUsHonoi(int now, int goTo, int goal) throws IOException {
         while(goal > colum[goTo].size()){
             List<Integer> dir = direction(now, dirSet());
 
             //갈 수 있는 곳이 하나면
             if (dir.size() == 1) {
                 //일단 간다
-                System.out.println("하나");
                 move(now, dir.get(0));
                 //갈 수 있는 곳이 둘이면
             }
             else if(dir.size() == 2) {
-                System.out.println("둘");
-                //현재 열의 연속된 수가 홀수면
                 /*
                 * 0 1 <-
                 * 1 2
                 * 2 3 <-
                 * 3 4*/
-                if (Continuous(now)/2 == 0) {
+                //현재 열의 연속된 수가 홀수면
+                if (Continuous(now)%2 == 0) {
                     //그대로 들어가고
                     move(now, goTo);
                 }
                     //현재 열의 연속된 수가 짝수면
                 else {
-                    for(int a : dir){
-                        System.out.println(a);
-                    }
-                    System.out.println("goto: "+goTo);
-                    dir.remove(goTo);
-                    System.out.println(dir.get(0)+"로 보낸다");
+                    dir.remove((Object)goTo);
                     //목적지 반대편으로 들어간다
                     move(now, dir.get(0));
                 }
             }
             //갈 수 있는 곳이 없다면
             else {
-                System.out.println("없어");
-                List<Integer> newcolum = dirSet();
-                newcolum.remove(now);
-
                 //새로운 목적지 컬럼
                 int newGoTo = whereMid();
-                newcolum.remove(newGoTo);
-
                 //새로운 출발지 컬럼
-                int newNow = newcolum.get(0);
-
-                //새로운 할당량?
-                int newGoal = Continuous(newNow) + colum[newGoTo].size();
-
+                int newNow = whereMin();
+                //새로운 목표값
+                int newGoal = Continuous(newNow)+1 + colum[newGoTo].size();
                 letUsHonoi(newNow, newGoTo, newGoal);
             }
 
@@ -150,6 +135,36 @@ public class Step10_11729 {
         return all;
     }
 
+    public static int whereMin(){
+        int a = colum[0].get(Continuous(0));
+        int b = colum[1].get(Continuous(1));
+        int c = colum[2].get(Continuous(2));
+
+        if(a < b){
+            if(a < c){
+                return 0;
+                /* a<b */
+                /* a<c */
+
+            }
+            else{
+                return 2;
+                /* a<b */
+                /* a>=c */
+            }
+        }else{
+            if(b < c){
+                return 1;
+                /* a>=b */
+                /* b<c */
+
+            }else{
+                return 2;
+                /* a>=b */
+                /* b>=c */
+            }
+        }
+    }
     //연속된 위층 마지막이 중간인 곳은 어디인지
     public static int whereMid(){
         int a = colum[0].get(Continuous(0));
@@ -202,10 +217,14 @@ public class Step10_11729 {
     //요소들 중 연속된 수가 홀수인지 짝수인지 판별하기 위한
     //cnt 리턴
     public static int Continuous(int here) {
-        int tmp = colum[here].get(0)-1, cnt = -1;
+        int tmp = colum[here].get(0), cnt = -1;
+        if(tmp == 999){
+            return 0;
+        }
         for(int a : colum[here]){
-            if(a == tmp+1){
+            if(a == tmp && a != 999){
                 cnt++;
+                tmp = a + 1;
             }else{
                 break;
             }
@@ -214,14 +233,15 @@ public class Step10_11729 {
     }
 
     //이동
-    public static void move (int now, int goTo){
+    public static void move (int now, int goTo) throws IOException {
             int tmp = colum[now].get(0);
             if(tmp == 999 && colum[goTo].get(0) < tmp){
                 return;
             }
             colum[now].remove(0);
             colum[goTo].add(0, tmp);
-            System.out.println("이동 "+(now + 1) + " " + (goTo + 1)+"\n");
+            sb.append((now + 1)+" "+(goTo + 1)+"\n");
+            count++;
         }
 
 
