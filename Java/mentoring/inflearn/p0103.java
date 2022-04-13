@@ -24,11 +24,10 @@ import java.io.InputStreamReader;
 단어를 답으로 합니다.
 
 
-예시 입력 1 
-
+예시 입력 1
 it is time to study
+*
 예시 출력 1
-
 study
 * */
 
