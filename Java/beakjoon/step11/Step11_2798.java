@@ -3,9 +3,7 @@ package step11;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /*
 브루투포스-블랙잭
@@ -35,47 +33,45 @@ N장의 카드에 써져 있는 숫자가 주어졌을 때, M을 넘지 않으�
 21
 예제 입력 2
 10 500
-93 181 245 214 315 36 185 138 216 295
+36 93 138 181 185 214 216 245 295 315
+*                      *   *
 예제 출력 2
 497
  */
 public class Step11_2798 {
-
-    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-
         String[] var = br.readLine().split(" ");
+        String[] Strcards = br.readLine().split(" ");
+        int[] cards = Arrays.stream(Strcards).mapToInt(Integer::parseInt).toArray();
         int m = Integer.parseInt(var[1]);
+        Arrays.sort(cards);
 
-        String[] cards = br.readLine().split(" ");
-        int size = cards.length-1;
-        int[] pack = new int[cards.length];
-        int i=0;
-        for(String s: cards){
-            pack[i++] = Integer.parseInt(s);
+        int i;
+
+        /*카드가 3장이면 바로 출력*/
+        if(cards.length==3){
+            System.out.println(cards[0]+cards[1]+cards[2]);
+            return;
+        }else if(cards.length>=100){
+            i= 99;
+        }else{
+            i = cards.length -1 ;
         }
-        Arrays.sort(pack);
-        int sum = 0;
-        int cnt = 3;
-        for(int j = size; j > -1; j--){
-            if(sum+pack[j]<m){
-                sum+=pack[j];
 
-                if(--cnt==0){
-                    break;
+        int max=0;
+        for(; i >1;i--){
+            for(int j = i-1; j >0; j--){
+                for(int k = j-1; k>-1; k--){
+                    int sum = cards[i]+cards[j]+cards[k];
+                    if(sum <= m){
+                        if(sum > max){
+                            max = sum;
+                        }
+                    }
                 }
             }
-
         }
-
-        System.out.println(sum);
-
-
-
+        System.out.println(max);
     }
-
-
-
 }
