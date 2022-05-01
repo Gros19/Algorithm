@@ -37,21 +37,29 @@ public class p0108 {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         String Strin = scn.nextLine().toUpperCase();
+        StringBuilder s = new StringBuilder();
 
-        Pattern pattern = Pattern.compile("([A-Za-z0-9]+)");
+        Pattern pattern = Pattern.compile("[A-Z0-9]+");
         Matcher matcher = pattern.matcher(Strin);
 
         while(matcher.find()){
-            String s = matcher.group();
-            String[] sarr = s.split("\n");
+            s.append(matcher.group());
+        }
+        char[] carr = s.toString().toCharArray();
 
-            int size = sarr.length;
 
+        int size = carr.length;
+        int mid = size/2;
+        int end = size -1;
+        for(int i = 0; i < mid; i++){
+//            System.out.println(carr[i] +" "+carr[end-i]);
+            if(carr[i] != carr[end-i]){
+                System.out.println("NO");
+                return;
+            }
         }
 
-
-
-        System.out.println(Strin);
+        System.out.println("YES");
 
     }
 }
