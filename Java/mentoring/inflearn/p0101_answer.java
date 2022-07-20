@@ -34,10 +34,8 @@ public class p0101_answer {
         int ans = 0;
         str = str.toUpperCase();
         t=Character.toUpperCase(t);
-        for(int i=0; i<str.length(); i++){
-            if(str.charAt(i)==t){
-                ans++;
-            }
+        for(char x : str.toCharArray()){
+            if(x==t) ans++;
         }
         return ans;
     }
