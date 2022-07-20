@@ -1,54 +1,73 @@
 /*
-A string is called balanced when every letter occurring in the string, appears both in upper- and lowercase
-문자열에서 발생하는 모든 문자가 대문자와 소문자로 모두 나타날 때 문자열을 균형이라고 합니다.
-. For example, the string "CATattac" is balanced ('a', 'c' and 't' occur in both cases),
-but "Madam" is not ('d' and 'a' appear only in lowercase). Note that the number of occurrences does not matter.
+You are given a string S consisting of N lowercase letters. In one move you can remove any substring (consistent fragment) from S, which starts and ends with the same letter and is at least two letters long. What is the minimum number of letters that may remain in S after any number of such moves?
 
 Write a function:
 
 class Solution { public int solution(String S); }
 
-that, given a string S of length N, returns the length of the shortest balanced fragment of S. If S does not contain any balanced fragments, the function should return -1.
+that, given a string S, returns the length of the shortest string that can be obtained from S by applying any number of moves as described above.
 
 Examples:
 
-1. Given S = "azABaabza", the function should return 5. The shortest balanced fragment of S is "ABaab".
+1. Given S = "abcca c", the function should return 1. After removing the substring "abcca", there will be a single letter "c" remaining.
 
-2. Given S = "TacoCat", the function should return -1. There is no balanced fragment.
+2. Given S = "abcda bc dabcd" ("abcd" stated three times), the function should return 2. To achieve that, you can, for example, remove the first five letters from S ("abcda") in the first move, and the last five letters ("dabcd") in the second move. The remaining fragment would be "bc".
 
-3. Given S = "AcZCbaBz", the function should return 8. The shortest balanced fragment is the whole string.
+3. Given S = "axaa byab", the function should return 0. It is possible to remove all letters by removing the substring "axaa" in the first move, and then "byab" in the second.
 
-4. Given S = "abcdefghijklmnopqrstuvwxyz", the function should return -1.
+Write an efficient algorithm for the following assumptions:
 
-Assume that:
-
-N is an integer within the range [1..200];
-string S consists only of letters ('a'−'z' and/or 'A'−'Z').
-In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
-
+N is an integer within the range [1..100,000];
+string S consists only of lowercase letters (a−z).
  */
 public class Pi_codeQuiz3 {
 
 
         public static void main(String[] args){
             Solution3 a = new Solution3();
-            System.out.println(a.solution("Sun",3));
+            System.out.println(a.solution("abccac"));
+            System.out.println(a.solution("abcdabcdabcd"));
+            System.out.println(a.solution("axaabyab"));
         }
 
 }
-
+/*
+"axaabyab"
+ */
 class Solution3 {
-    public String solution(String S, int K) {
-        String [] week = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-        int n = K;
-        for(int i = 0; i< week.length; i++){
-            if(S.equals(week[i])){
+    public int solution(String S) {
+/*
+        "axby"
+        a
+        ax a a by a b
 
-                n+=i;
-                break;
+        x
+        a x aabyab
+
+        b
+        axaa b ya b
+
+        y
+        axaab y ab
+
+ */
+        int i = 0;
+        while(i++ < S.length()){
+            char c = S.charAt(0);
+            String sub = "";
+
+            int idx = S.indexOf(c);
+            if(idx > -1){
+                sub = S.substring(idx+1);
+                int lidx = sub.indexOf(c);
+                sub = S.substring(idx, lidx+2);
+            }
+            if(!sub.equals("")){
+                S = S.replace(sub, "");
             }
         }
-        n%=7;
-        return week[n];
+
+        System.out.println("s ::" + S);
+        return 0;
     }
 }

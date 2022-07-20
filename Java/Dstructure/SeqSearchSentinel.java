@@ -1,7 +1,11 @@
 package Dstructure;
 
 import java.util.Scanner;
-
+/*Do it
+자료구조와 함께 배우는 알고리즘 입문
+------------------------------
+선형 검색 개선(보초)
+------------------------------*/
 public class SeqSearchSentinel {
     static int seqSearchSentinel(int[] a, int n, int key){
         int i = -1;

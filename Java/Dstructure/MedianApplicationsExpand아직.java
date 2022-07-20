@@ -4,9 +4,9 @@ package Dstructure;
 Do it
 자료구조와 함께 배우는 알고리즘 입문
 ------------------------------
-3 요소 중앙값
+4 요소 중앙값
  */
-public class Median {
+public class MedianApplicationsExpand아직 {
     public static void main(String[] args){
         System.out.println(med3(1, 1, 4));
     }

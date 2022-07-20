@@ -1,3 +1,5 @@
+package Dstructure;
+
 public class min4 {
     public static void main(String[] args){
         System.out.println(min4(3, 5, 6, 2));

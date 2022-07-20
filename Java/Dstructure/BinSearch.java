@@ -15,7 +15,7 @@ public class BinSearch {
         int pl = 0;
         /*이진 검색 범위의 끝 인덱스*/
         int pr = n - 1;
-
+/*12345678*/
         do{
             /*중앙 요소의 인덱스*/
             int pc = (pl + pr) / 2;

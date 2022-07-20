@@ -1,4 +1,6 @@
 package step4;
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
 import java.util.Scanner;
 
 /*
@@ -46,39 +48,33 @@ N이 주어졌을 때, N의 사이클의 길이를 구하는 프로그램을 작
 예제 출력 5
 12
 
+26
+2+6= 8 > 68
+6+8=14 > 84
+8+4=12 > 42
+4+2= 6 > 26
  */
 public class Step4_1110 {
     public static void main(String[] args){
         Scanner scn = new Scanner(System.in);
         int cycle = 1;
-
-        /*
-        2+6= 8 > 68
-        6+8=14 > 84
-        8+4=12 > 42
-        4+2= 6 > 26
-         */
-
-        //ex)
-        //N = 26
         int N = scn.nextInt();
         int[] num = {0,0};
+
         int goal = N;
 
-        //2
-        num[0] = N/10;
-        //6
-        num[1] = N%10;
-        //60 + (2+6)%10 = 68
+        //N 26
+        num[0] = N/10; //2
+        num[1] = N%10; //6
+        System.out.printf("%2d => %d + %d = %2d\n", N, num[0], num[1], num[0]+num[1]);
         N = num[1]*10 + (num[0]+num[1])%10;
 
-        //68 != 26 그래서 True
+
         while (goal != N){
-            //6
-            num[0] = N/10;
-            //8
-            num[1] = N%10;
-            //80 + (8+4)%10 = 84
+
+            num[0] = N/10; //0
+            num[1] = N%10; //0
+            System.out.printf("%2d => %d + %d = %2d\n", N, num[0], num[1], num[0]+num[1]);
             N = num[1]*10 + (num[0]+num[1])%10;
             cycle++;
         }

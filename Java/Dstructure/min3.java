@@ -1,3 +1,5 @@
+package Dstructure;
+
 public class min3 {
     public static void main(String[] args){
         System.out.println(min3(3, 5, 6));

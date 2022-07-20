@@ -15,6 +15,9 @@ public class SeqSearch {
     }
 
     public static void main(String[] args){
+        System.out.print("123456");
+//        System.out.print("\r리턴");
+        System.out.println("결과는?");
         Scanner scn = new Scanner(System.in);
 
         System.out.println(" 요솟수: ");

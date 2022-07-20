@@ -34,35 +34,25 @@ E	(46, 155)	5
 60 175
 46 155
 
+
 예제 출력 1
 2 2 1 2 5
  */
 public class Step11_7568 {
     public static void main(String[] args)  {
         Scanner scn = new Scanner(System.in);
-        int n = scn.nextInt()-1;
+        int n = scn.nextInt();
         int[][] arr = new int[n][3]; //5 3
-        while(n >= 0){
-            String s = scn.nextLine();
-
-            if(s.length() >0){
-
-                String saa[] = s.split(" ");
-
-                arr[n][0] = Integer.parseInt(saa[0]);
-                arr[n][1] = Integer.parseInt(saa[1]);
-            }
-            n--;
+        while(--n >= 0){
+            arr[n][0] = scn.nextInt();
+            arr[n][1] = scn.nextInt();
         }
 
-        for(int[] v : arr){
-            for(int c : v){
-                System.out.print(c+ "  ");
+        for(int[] a : arr){
+            for(int b : a){
+                System.out.print(b+" ");
             }
             System.out.println();
         }
-
-
-
     }
 }

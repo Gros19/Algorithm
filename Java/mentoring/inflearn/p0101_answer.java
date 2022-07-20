@@ -2,7 +2,6 @@ package mentoring.inflearn;
 
 import java.util.Scanner;
 
-
 /*
 * 1. 문자 찾기
 설명
@@ -30,18 +29,24 @@ c
 2
 
 * */
-
-public class p0101_another {
+public class p0101_answer {
+    public int solution(String str, char t){
+        int ans = 0;
+        str = str.toUpperCase();
+        t=Character.toUpperCase(t);
+        for(int i=0; i<str.length(); i++){
+            if(str.charAt(i)==t){
+                ans++;
+            }
+        }
+        return ans;
+    }
 
     public static void main(String[] args){
-        Scanner scn = new Scanner(System.in);
-        String str = scn.nextLine().toUpperCase();
-        String com = scn.next().toUpperCase();
-
-        int maxSize = str.length();
-        int minSize = str.replaceAll(com, "").length();
-
-        System.out.println(maxSize-minSize);
-
+       p0101_answer P = new p0101_answer();
+       Scanner scn = new Scanner(System.in);
+       String str = scn.next();
+       char c = scn.next().charAt(0);
+       System.out.print(P.solution(str, c));
     }
 }

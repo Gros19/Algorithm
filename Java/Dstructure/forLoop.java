@@ -1,3 +1,5 @@
+package Dstructure;
+
 import java.io.*;
 import java.util.Scanner;
 
