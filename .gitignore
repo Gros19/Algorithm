@@ -369,3 +369,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,java,pycharm,python,intellij
+*.iml
+
+Java/.idea/
