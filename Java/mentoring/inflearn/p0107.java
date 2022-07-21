@@ -28,13 +28,6 @@ gooG
 예시 출력 1
 
 YES
-
-a
-0
-av
-1
-asd
-1
  */
 public class p0107 {
     public static void main(String[] args){
