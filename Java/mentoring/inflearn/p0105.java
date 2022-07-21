@@ -71,10 +71,6 @@ public class p0105 {
             }
         }
 
-
-
-
-
         for(char a : ans){
             sb.append(a);
         }
