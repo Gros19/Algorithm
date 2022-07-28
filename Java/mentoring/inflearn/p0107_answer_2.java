@@ -29,23 +29,23 @@ gooG
 
 YES
  */
-public class p0107 {
+public class p0107_answer_2 {
     public static void main(String[] args){
         Scanner scn = new Scanner(System.in);
-
-        char[] inarr = scn.nextLine().toUpperCase().toCharArray();
-        int size = inarr.length;
-        int mid = size/2;
-
-        for(int i = 0; i <= mid; ++i){
-            if(inarr[size-1-i] != inarr[i]){
-                System.out.println("NO");
-                return;
-            }
-        }
-
-        System.out.println("YES");
-
+        p0107_answer_2 P = new p0107_answer_2();
+        String str = scn.nextLine();
+        System.out.println(P.solution(str));
 
     }
+
+    private String solution(String str) {
+        str = str.toUpperCase();
+        String tmp = new StringBuilder(str).reverse().toString();
+
+        if(str.equalsIgnoreCase(tmp))
+            return "YES";
+        else
+            return "NO";
+    }
+
 }
