@@ -70,21 +70,33 @@ public class p0112_answer {
         Scanner scn = new Scanner(System.in);
         p0112_answer P = new p0112_answer();
         int num = scn.nextInt();
-        String str = scn.nextLine();
+        String str = scn.next();
+//        System.out.println(str);
+        str = str.replaceAll("#", "1");
+        str = str.replaceAll("[*]", "0");
+//        System.out.println(str);
         System.out.println(P.solution(str, num));
 
     }
 
     private String solution(String str,int num) {
+        StringBuilder sb = new StringBuilder();
 
         String answer = "";
         for(int i = 0; i < num; i++){
             String tmp = str.substring(0,7);
-            str = str.replace(tmp, "");
-            
-            System.out.println(tmp);
+            int b = 64;
+            int c = 0;
+            for(char a: tmp.toCharArray()){
+                c+=(a-48)*b;
+//                System.out.print((a-48)*b+" ");
+                b/=2;
+            }
+//            System.out.println();
+            sb.append((char)c);
+            str = str.substring(7);
         }
-        return "tmp";
+        return sb.toString();
 
 
     }
