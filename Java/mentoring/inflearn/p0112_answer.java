@@ -81,6 +81,7 @@ public class p0112_answer {
         for(int i = 0; i < num; i++){
             String tmp = str.substring(0,7);
             str = str.replace(tmp, "");
+            
             System.out.println(tmp);
         }
         return "tmp";
