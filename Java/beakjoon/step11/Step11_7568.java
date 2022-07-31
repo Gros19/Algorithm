@@ -41,18 +41,27 @@ E	(46, 155)	5
 public class Step11_7568 {
     public static void main(String[] args)  {
         Scanner scn = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
         int n = scn.nextInt();
         int[][] arr = new int[n][3]; //5 3
-        while(--n >= 0){
-            arr[n][0] = scn.nextInt();
-            arr[n][1] = scn.nextInt();
+        for(int i = 0; i<n; i++){
+            arr[i][0] = scn.nextInt();
+            arr[i][1] = scn.nextInt();
         }
+        for(int i = 0; i < n; i++){
+            int cnt = 1;
+            for(int j = 0; j<n; j++){
+                if(i == j){
+                    continue;
+                }
+                if(arr[i][0] < arr[j][0] && arr[i][1] < arr[j][1]){
+                    cnt ++;
+                }
 
-        for(int[] a : arr){
-            for(int b : a){
-                System.out.print(b+" ");
             }
-            System.out.println();
+            arr[i][2] = cnt;
+            sb.append(cnt).append(" ");
         }
+        System.out.println(sb);
     }
 }
