@@ -46,13 +46,14 @@ public class p0115_answer {
     public static void main(String[] args){
         Scanner scn = new Scanner(System.in);
         p0115_answer P = new p0115_answer();
-        int num = scn.nextInt();
+        int num = Integer.parseInt(scn.nextLine());
+        String[] lineA = scn.nextLine().split(" ");
+        String[] lineB = scn.nextLine().split(" ");
         int[] arrA = new int[num];
         int[] arrB = new int[num];
-
         for(int i = 0 ; i < num; i++){
-            arrA[i] = scn.nextInt();
-            arrB[i] = scn.nextInt();
+            arrA[i] = Integer.valueOf(lineA[i]);
+            arrB[i] = Integer.valueOf(lineB[i]);
         }
         System.out.println(P.solution(arrA, arrB, num));
     }
