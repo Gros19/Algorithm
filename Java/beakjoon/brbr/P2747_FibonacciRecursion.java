@@ -1,8 +1,8 @@
-package inflearn;
+package brbr;
 
 import java.util.Scanner;
 
-public class p0116_answer {
+public class P2747_FibonacciRecursion {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
@@ -19,11 +19,18 @@ public class p0116_answer {
             l = res;
             res = e;
             e = l + res;
-            sb.append(res+" ");
 
         }
-        System.out.println(1+" "+sb);
+        System.out.println(res);
 
     }
+    
+    public static void fibonacci(int n){
+//        if(n == 1){
+//
+//        } else if () {
+//
+//        }
 
+    }
 }
